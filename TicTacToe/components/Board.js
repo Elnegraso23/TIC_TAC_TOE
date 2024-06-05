@@ -29,7 +29,7 @@ const Board = () => {
   }
 
   return (
-    <View>
+    <View >
       <Text style={styles.status}>{status}</Text>
       <View style={styles.boardRow}>
         {renderSquare(0)}
@@ -46,7 +46,8 @@ const Board = () => {
         {renderSquare(7)}
         {renderSquare(8)}
       </View>
-      <Button title="Reset" onPress={() => setSquares(Array(9).fill(null))} />
+      <Button title="Reset" onPress={() => setSquares(Array(9).fill(null))} style={styles.resetButton} />
+
     </View>
   );
 };
@@ -71,15 +72,28 @@ const calculateWinner = (squares) => {
   return null;
 };
 
+
 const styles = StyleSheet.create({
   boardRow: {
     flexDirection: 'row',
+    backgroundColor: '#1E656D',
+    fontFamily :  'white',
+    
   },
   status: {
-    marginBottom: 10,
-    fontSize: 24,
+    marginBottom: 50,
+    fontSize: 30,
     fontWeight: 'bold',
+    borderBlockEndColor: 'red',
   },
+  resetButton: {
+    backgroundColor: 'red', // Set background color to red
+    marginTop: 20, // Add some margin to the top
+    paddingHorizontal: 20, // Add horizontal padding
+    paddingVertical: 10, // Add vertical padding
+    borderRadius: 5, // Add border radius for rounded corners
+  },
+  
 });
 
 export default Board;

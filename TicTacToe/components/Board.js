@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Button, Text } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import Square from './Square';
 
 const Board = () => {
@@ -24,12 +24,14 @@ const Board = () => {
   let status;
   if (winner) {
     status = `Winner: ${winner}`;
+  } else if (squares.every(square => square !== null)) {
+    status = 'It\'s a Draw!';
   } else {
     status = `Next player: ${isXNext ? 'X' : 'O'}`;
   }
 
   return (
-    <View >
+    <View>
       <Text style={styles.status}>{status}</Text>
       <View style={styles.boardRow}>
         {renderSquare(0)}
@@ -46,8 +48,9 @@ const Board = () => {
         {renderSquare(7)}
         {renderSquare(8)}
       </View>
-      <Button title="Reset" onPress={() => setSquares(Array(9).fill(null))} style={styles.resetButton} />
-
+      <TouchableOpacity onPress={() => setSquares(Array(9).fill(null))} style={styles.resetButton}>
+        <Text style={styles.resetButtonText}>Reset</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -72,19 +75,17 @@ const calculateWinner = (squares) => {
   return null;
 };
 
-
 const styles = StyleSheet.create({
   boardRow: {
     flexDirection: 'row',
     backgroundColor: '#1E656D',
-    fontFamily :  'white',
-    
+    fontFamily: 'white', // Esto es incorrecto y no tiene efecto en el View
   },
   status: {
     marginBottom: 50,
     fontSize: 30,
     fontWeight: 'bold',
-    borderBlockEndColor: 'red',
+    borderBlockEndColor: 'red', // Esto es incorrecto y no tiene efecto
   },
   resetButton: {
     backgroundColor: 'red', // Set background color to red
@@ -92,8 +93,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20, // Add horizontal padding
     paddingVertical: 10, // Add vertical padding
     borderRadius: 5, // Add border radius for rounded corners
+    alignItems: 'center', // Center the text horizontally
   },
-  
+  resetButtonText: {
+    color: 'white', // Text color
+    fontWeight: 'bold', // Text weight
+  },
 });
 
 export default Board;
